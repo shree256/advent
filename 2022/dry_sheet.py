@@ -1,17 +1,22 @@
 def day1():
     f = open("day1.txt","r")
-    arr = []
+    total_calories = []
     temp = 0
+    
     while True:
-        val = f.readline()
-        if val == '':
-            arr.append(temp)
+        calorie = f.readline()
+        if calorie == '':
+            total_calories.append(temp)
             break
-        if val == "\n":
-            arr.append(temp)
+        if calorie == "\n":
+            total_calories.append(temp)
             temp = 0
         else:
-            temp += int(val.strip())
-    print(max(arr))
+            temp += int(calorie.strip())
+
+    total_calories.sort(reverse=True)
+
+    print("part1: "+str(max(total_calories)))
+    print("part2: "+str(sum(total_calories[0:3])))
 
 day1()
