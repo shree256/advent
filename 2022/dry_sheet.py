@@ -91,4 +91,62 @@ def day2():
     print("score: " + str(score))
 
 
-day2()
+def get_char_score(c):
+    if ord(c) > 97:
+        return ord(c) - 96
+    else:
+        return ord(c) - 38
+
+
+def day3():
+    f = open("day3.txt", "r")
+    score = 0
+    while True:
+        # Part1
+        rucksack = f.readline()
+        if rucksack:
+            sack_len = len(rucksack) // 2
+            compartment1 = rucksack[0:sack_len]
+            compartment2 = rucksack[sack_len:-1]
+
+            for c1 in compartment1:
+                if c1 in compartment2:
+                    score += get_char_score(c1)
+        else:
+            break
+
+        # Part2
+        # while True:
+        #     flag = False
+        #     group1 = f.readline()
+        #     group2 = f.readline()
+        #     group3 = f.readline()
+
+        #     if group3:
+        #         for c1 in group1:
+        #             for c2 in group2:
+        #                 if c2 == c1:
+        #                     for c3 in group3:
+        #                         if c3 == c1:
+        #                             score+=get_char_score(c3)
+        #                             flag = True
+        #                             break
+        #                 if flag:
+        #                     break
+        #             if flag:
+        #                 break
+        #     elif group1:
+        #         for c1 in group1:
+        #             for c2 in group2:
+        #                 if c2 == c1:
+        #                     score+=get_char_score(c2)
+        #                     flag = True
+        #                     break
+        #             if flag:
+        #                 break
+        #     else:
+        #         break
+        # break
+    print("score: " + str(score))
+
+day3()
