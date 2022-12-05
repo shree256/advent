@@ -21,10 +21,9 @@ def day1():
     print("part2: " + str(sum(total_calories[0:3])))
 
 
-def day2():
+def day2_1():
     f = open("day2.txt", "r")
 
-    # Part1
     strategy_score = {
         "X": 1,
         "Y": 2,
@@ -41,25 +40,6 @@ def day2():
         "A": "Y",
         "B": "Z",
         "C": "X",
-    }
-
-    # Part2
-    draw_map_points = {
-        "A": 1,
-        "B": 2,
-        "C": 3,
-    }
-
-    win_map_points = {
-        "A": 2,
-        "B": 3,
-        "C": 1,
-    }
-
-    lose_map_points = {
-        "A": 3,
-        "B": 1,
-        "C": 2,
     }
 
     score = 0
@@ -91,6 +71,44 @@ def day2():
     print("score: " + str(score))
 
 
+def day2_2():
+    f = open("day2.txt", "r")
+
+    draw_map_points = {
+        "A": 1,
+        "B": 2,
+        "C": 3,
+    }
+
+    win_map_points = {
+        "A": 2,
+        "B": 3,
+        "C": 1,
+    }
+
+    lose_map_points = {
+        "A": 3,
+        "B": 1,
+        "C": 2,
+    }
+
+    score = 0
+
+    while True:
+        strategy = f.readline()
+        if strategy:
+            Part2
+            col1, col2 = strategy.strip().split(" ")
+            if col2 == "Y":
+                score += draw_map_points[col1] + 3
+            elif col2 == "Z":
+                score += win_map_points[col1] + 6
+            else:
+                score += lose_map_points[col1]
+        else:
+            break
+
+
 def get_char_score(c):
     if ord(c) > 97:
         return ord(c) - 96
@@ -98,11 +116,11 @@ def get_char_score(c):
         return ord(c) - 38
 
 
-def day3():
+def day3_1():
     f = open("day3.txt", "r")
     score = 0
+
     while True:
-        # Part1
         rucksack = f.readline()
         if rucksack:
             sack_len = len(rucksack) // 2
@@ -115,38 +133,43 @@ def day3():
         else:
             break
 
-        # Part2
-        # while True:
-        #     flag = False
-        #     group1 = f.readline()
-        #     group2 = f.readline()
-        #     group3 = f.readline()
-
-        #     if group3:
-        #         for c1 in group1:
-        #             for c2 in group2:
-        #                 if c2 == c1:
-        #                     for c3 in group3:
-        #                         if c3 == c1:
-        #                             score+=get_char_score(c3)
-        #                             flag = True
-        #                             break
-        #                 if flag:
-        #                     break
-        #             if flag:
-        #                 break
-        #     elif group1:
-        #         for c1 in group1:
-        #             for c2 in group2:
-        #                 if c2 == c1:
-        #                     score+=get_char_score(c2)
-        #                     flag = True
-        #                     break
-        #             if flag:
-        #                 break
-        #     else:
-        #         break
-        # break
     print("score: " + str(score))
 
-day3()
+
+def day3_2():
+    f = open("day3.txt", "r")
+    score = 0
+
+    while True:
+        flag = False
+        group1 = f.readline()
+        group2 = f.readline()
+        group3 = f.readline()
+        if group3:
+            for c1 in group1:
+                for c2 in group2:
+                    if c2 == c1:
+                        for c3 in group3:
+                            if c3 == c1:
+                                score += get_char_score(c3)
+                                flag = True
+                                break
+                    if flag:
+                        break
+                if flag:
+                    break
+        elif group1:
+            for c1 in group1:
+                for c2 in group2:
+                    if c2 == c1:
+                        score += get_char_score(c2)
+                        flag = True
+                        break
+                if flag:
+                    break
+        else:
+            break
+    print("score: " + str(score))
+
+
+day2_2()
