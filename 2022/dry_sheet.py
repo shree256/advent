@@ -223,5 +223,25 @@ def day5():
     for stack in cargo:
         print(stack[-1], end="")
 
-
-day5()
+def day6(marker_length=4):
+    f = open("day6.txt", "r")
+    message = f.readline()
+    marker_found = False
+    i = 0
+    while True:
+        marker = message[i:i+marker_length]
+        j=0
+        while True:
+            if j<marker_length:
+                if marker[j+1:].find(marker[j])<0:
+                    j+=1
+                else:
+                    i+=1
+                    break
+            else:
+                marker_found = True 
+                break
+        if marker_found:
+            print("Marker index: "+str(i+marker_length))
+            print("Marker: "+marker)
+            break
