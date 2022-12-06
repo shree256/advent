@@ -1,3 +1,6 @@
+import re
+
+
 def day1():
     f = open("day1.txt", "r")
     total_calories = []
@@ -172,4 +175,53 @@ def day3_2():
     print("score: " + str(score))
 
 
-day2_2()
+def day5():
+    f = open("day5.txt", "r")
+
+    cargo = [
+        ["G", "F", "V", "H", "P", "S"],
+        ["G", "J", "F", "B", "V", "D", "Z", "M"],
+        ["G", "M", "L", "J", "N"],
+        ["N", "G", "Z", "V", "D", "W", "P"],
+        ["V", "R", "C", "B"],
+        ["V", "R", "S", "M", "P", "W", "L", "Z"],
+        ["T", "H", "P"],
+        ["Q", "R", "S", "N", "C", "H", "Z", "V"],
+        ["F", "L", "G", "P", "V", "Q", "J"],
+    ]
+
+    while True:
+        operation = re.split(r"move | from | to ", f.readline().strip())
+
+        if operation and len(operation) > 1:
+            crates, stack_from, stack_to = (
+                int(operation[1]),
+                int(operation[2]) - 1,
+                int(operation[3]) - 1,
+            )
+
+            stack1 = cargo[stack_from]
+            stack2 = cargo[stack_to]
+
+            # Part1
+            for _ in range(crates):
+                stack2.append(stack1.pop())
+
+            # Part 2
+            # temp = []
+            # for _ in range(crates):
+            #     temp.append(stack1.pop())
+            # temp.reverse()
+            # stack2 += temp
+
+            cargo[stack_from] = stack1
+            cargo[stack_to] = stack2
+
+        else:
+            break
+
+    for stack in cargo:
+        print(stack[-1], end="")
+
+
+day5()
