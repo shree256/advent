@@ -247,3 +247,61 @@ def day6(marker_length=4):
             print("Marker index: " + str(i + marker_length))
             print("Marker: " + marker)
             break
+
+
+def day7_1():
+    f = open("day7.txt", "r")
+    command = f.readline().replace("$ ", "").strip().split(" ")
+
+    directories_map = {}
+    directories_file_sizes = {}
+    key = command[1]
+    directories_map[key] = []
+    directories_file_sizes[key] = 0
+
+    while True:
+        print("map: " + str(directories_map))
+        print("files: " + str(directories_file_sizes))
+        print("key: " + key)
+        command = f.readline().replace("$ ", "").strip().split(" ")
+        print(command)
+        print("*" * 50)
+
+        if command and command != [""]:
+            if command[0] == "cd" and command[1] != "..":
+                key = command[1]
+                if key not in directories_map.keys():
+                    directories_map[key] = []
+                    directories_file_sizes[key] = 0
+            elif command[0] == "dir":
+                directories_file_sizes[command[1]] = 0
+                directories_map[key].append(command[1])
+            elif command[0] == "ls" or command[0] == "cd":
+                continue
+            else:
+                directories_file_sizes[key]+=int(command[0])
+        else:
+            break
+
+    # Direct sizes
+    print(directories_map)
+    print(directories_file_sizes)
+
+    # Calculate indirect sizes
+    for k in directories_map.keys():
+        for folder in directories_map[k]:
+            directories_file_sizes[k]+=directories_file_sizes[folder]
+
+    # Direct with Indirect sizes
+    print(directories_map)
+    print(directories_file_sizes)
+
+    # Calculate directories with a total size of at most 100000
+    total_size = 0
+    for folder in directories_file_sizes:
+        size = directories_file_sizes[folder]
+        if size <= 100000:
+            total_size+=size
+    print(total_size)
+
+day7_1()
